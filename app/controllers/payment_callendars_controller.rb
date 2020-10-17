@@ -1,0 +1,2 @@
+class PaymentCallendarsController < ApplicationController
+end
