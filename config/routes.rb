@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resource :payment_calendar, only: :show do
     resources :payment_schedules, only: [:create, :update, :destroy]
   end
-    get "cash-flow", to: "payment_callendars#cash_flow"
+  get "cash-flow", to: "payment_callendars#cash_flow"
+
+  get "quick-balance", to: "payment_callendars#quick_balance"
+
   root to: "payment_callendars#cash_flow"
 end
