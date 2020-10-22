@@ -1,17 +1,41 @@
+# == Schema Information
+#
+# Table name: plaid_items
+#
+#  id                      :bigint           not null, primary key
+#  bank_name               :string
+#  plaid_item_id           :text
+#  plaid_item_access_token :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
+
 class PlaidItem < ApplicationRecord
   def balance
     return unless plaid_item_access_token
-
-    @balance ||= Rails.cache.fetch("MACU_quick_balance", expires_in: 12.hours) do
+    ## TODO
+    @balance ||= Rails.cache.fetch("plaid_item_#{id}_quick_balance", expires_in: 12.hours) do
       PlaidApi.balance(plaid_item_access_token)
     end
   end
 
   def transactions
     return unless plaid_item_access_token
-    @balance ||= Rails.cache.fetch("transactions", expires_in: 12.hours) do
+    @transactions ||= Rails.cache.fetch("plaid_item_#{id}_transactions", expires_in: 12.hours) do
       PlaidApi.transactions(plaid_item_access_token)
     end
+  end
+
+  def past_transactions
+    TransactionService.past_payments(transactions)
+  end
+
+  def duplicate_transactions
+    TransactionService.get_bills(transactions)
+  end
+
+  def daily_and_weekly_spend
+    TransactionService.weekly_and_daily_spend(plaid_item_access_token)
   end
 
   def quick_balance(account_name=nil)
@@ -20,7 +44,7 @@ class PlaidItem < ApplicationRecord
         account_hash["name"] == account_name
       end.dig("balance", "current")
     else
-      accounts = balance["accounts"].each {|acc| acc.dig("balances", "current")}
+      accounts = balance["accounts"].map {|acc| acc.dig("balances", "current")}
     end
     accounts
   end
