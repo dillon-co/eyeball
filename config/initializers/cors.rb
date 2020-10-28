@@ -14,3 +14,4 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 end
 
 Rails.application.config.hosts << "localhost:4200"
+Rails.application.config.hosts << "eyeball-finance.herokuapp.com"
