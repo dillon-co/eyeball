@@ -5,12 +5,12 @@
 
 # Read more: https://github.com/cyu/rack-cors
 #
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins 'localhost:4200'
-#
-#     resource '*', headers: :any, methods: :any, credentials: true
-#   end
-# end
-#
-# Rails.application.config.hosts << "localhost:4200"
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'localhost:4200'
+
+    resource '*', headers: :any, methods: :any, credentials: true
+  end
+end
+
+Rails.application.config.hosts << "localhost:4200"
