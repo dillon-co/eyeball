@@ -10,5 +10,7 @@ Rails.application.routes.draw do
 
   get "quick-balance", to: "payment_callendars#quick_balance"
 
+  get "duplicate-transactions", to: "payment_callendars#duplicate_transactions"
+
   root to: "payment_callendars#cash_flow"
 end

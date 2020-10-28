@@ -51,7 +51,7 @@ class PlaidApi
       counter = 0
       all_transactions = []
       while counter < num_months_back
-        all_transactions << transactions(access_token, counter.months.ago)
+        all_transactions << transactions_by_month(access_token, counter.months.ago)
         counter +=1
       end
       all_transactions

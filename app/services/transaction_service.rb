@@ -30,8 +30,8 @@ class TransactionService
     end
 
     def get_bills(transactions)
-      recurring_transactions.map do |t|
-        past_payments.select{|tt| tt.slice("amount", "merchant_name") == t}.first
+      recurring_transactions(transactions).map do |t|
+        transactions.flatten.select{|tt| tt.slice("amount", "merchant_name") == t}.first
       end
     end
 

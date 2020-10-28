@@ -1,5 +1,7 @@
 class PaymentCallendarsController < ApplicationController
 
+  #TODO fix typo in class name
+
   def quick_balance
     render json: PlaidItem.last.quick_balance
   end
@@ -9,4 +11,11 @@ class PaymentCallendarsController < ApplicationController
     render json: cash_flow
   end
 
+  def recurring_transactions
+    PlaidItem.last.recurring_transactions
+  end
+
+  def duplicate_transactions
+    render json: PlaidItem.last.duplicate_transactions
+  end
 end
