@@ -7,7 +7,7 @@ class PaymentSchedulesController < ApplicationController
     payment_schedule["amount_in_pennies"] = payment_schedule.delete "amount"
     payment_schedule = plaid_item.payment_schedules.create(payment_schedule)
     if payment_schedule.save
-      render json: ["Saved"]
+      render json: { payment_schedule, success: true}
     end
   end
 
