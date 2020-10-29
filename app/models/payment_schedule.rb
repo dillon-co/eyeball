@@ -12,9 +12,11 @@
 #  recurrence_type   :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  plaid_item_id     :bigint
 #
 
 class PaymentSchedule < ApplicationRecord
+  belongs_to :plaid_item
 
   enum recurrence_wday: {
       sunday: 0,

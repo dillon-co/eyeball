@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 2020_10_27_233522) do
     t.integer "recurrence_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "plaid_items_id"
-    t.index ["plaid_items_id"], name: "index_payment_schedules_on_plaid_items_id"
+    t.bigint "plaid_item_id"
+    t.index ["plaid_item_id"], name: "index_payment_schedules_on_plaid_item_id"
   end
 
   create_table "plaid_items", force: :cascade do |t|
@@ -59,5 +59,5 @@ ActiveRecord::Schema.define(version: 2020_10_27_233522) do
   end
 
   add_foreign_key "payment_charges", "plaid_items", column: "plaid_items_id"
-  add_foreign_key "payment_schedules", "plaid_items", column: "plaid_items_id"
+  add_foreign_key "payment_schedules", "plaid_items"
 end

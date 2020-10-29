@@ -11,6 +11,8 @@
 #
 
 class PlaidItem < ApplicationRecord
+  has_many :payment_schedules
+
   def balance
     return unless plaid_item_access_token
     ## TODO
